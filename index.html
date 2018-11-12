@@ -1,0 +1,68 @@
+<html xmlns:v-on="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="index.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script
+            src="https://code.jquery.com/jquery-3.3.1.min.js"
+            integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+            crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,500,700,900">
+    <link rel="stylesheet" href="debug.css">
+</head>
+<body id="body">
+
+<div id="box">
+    <div class="box" :style="this.style">
+        <img style="position: relative; height: 160px; top: 20px" src="simonyi-white.png">
+        <!--<p>Hello, Vue!</p>-->
+    </div>
+    rot: {{ rot }}<br>
+    max: <input type="range" min="0" max="90" v-model="max_rot"><input type="number" v-model="max_rot"><br>
+    dir: {{ way ? "-->" : "<--" }}<br>
+    angle: {{ angle + rot}}°<br>
+    <br>
+    pos: {{ pos }}<br>
+    scale: <input type="number" v-model="scale"><br>
+    step: <input type="number" v-model="step"><br>
+    speed: <input type="number" v-model="speed">
+</div>
+<br>
+
+<div id="app-1">{{ message }}</div>
+<div id="app-2">
+    {{ user.username }}
+    <br>
+    <input type="text" v-model="new_todo"><input type="button" value="ADD" v-on:click="addTodo">
+    <h3>Todos</h3>
+    <ol>
+        <todo-item
+                v-for="todo in user.todo_list"
+                v-bind:todo="todo"
+                v-bind:key="todo.id">
+        </todo-item>
+    </ol>
+
+    <h3>Todos Templated</h3>
+    <ol>
+        <template v-for="todo in user.todo_list">
+            <li>
+                <input type="checkbox" :checked="todo.is_done">
+                <span :class="this.class">{{todo.name}}</span>
+            </li>
+        </template>
+    </ol>
+</div>
+<div id="app-3">
+    <div v-if="see">{{ msg }}</div>
+    <div v-if="!see">{{ no }}</div>
+    <input type="button" value="SEE!?" v-on:click="show">
+</div>
+
+<script src="index.js"></script>
+</body>
+</html>
