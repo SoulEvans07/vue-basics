@@ -1,11 +1,19 @@
-var app1 = new Vue({
-    el: '#app-1',
-    data: {
-        message: 'Hello Vue!'
-    }
-});
-
 axios.defaults.headers.post[ 'Access-Control-Allow-Origin' ] = '*';
+
+Vue.component('todo-list', {
+    props: [ 'user' ],
+    template:
+        `<ul>
+            <todo-item
+                v-for="todo in user.todo_list"
+                v-bind:todo="todo"
+                v-bind:key="todo.id"></todo-item>
+        </ul>`,
+    mounted() {
+
+    },
+    methods: {}
+});
 
 Vue.component('todo-item', {
     props: [ 'todo' ],
@@ -116,31 +124,31 @@ var app4 = new Vue({
         rot: 0,
         style: 'background: linear-gradient(to right, rgb(78, 216, 255) -200%, rgb(91, 255, 54) -100%, rgb(78, 216, 255) 0%, rgb(91, 255, 54) 100%)'
     },
-    mounted(){
+    mounted() {
         this.setStyle();
         setTimeout(() => this.moveR(), this.speed);
     },
     methods: {
         moveR: function () {
-            if (this.pos < 2*this.scale) this.pos += parseInt(this.step);
+            if (this.pos < 2 * this.scale) this.pos += parseInt(this.step);
             else this.pos = 0;
 
-            if(this.way) this.rot += 1;
+            if (this.way) this.rot += 1;
             else this.rot -= 1;
 
-            if(this.rot >= this.max_rot) this.way = false;
-            if(this.rot <= -this.max_rot) this.way = true;
+            if (this.rot >= this.max_rot) this.way = false;
+            if (this.rot <= -this.max_rot) this.way = true;
 
             this.setStyle();
             setTimeout(() => this.moveR(), this.speed);
         },
         setStyle: function () {
-            let p1 = this.pos -2*this.scale;
-            let p2 = this.pos -this.scale;
+            let p1 = this.pos - 2 * this.scale;
+            let p2 = this.pos - this.scale;
             let p3 = this.pos;
             let p4 = this.pos + this.scale;
-            this.style = "background: linear-gradient("+(this.angle+this.rot)+"deg, "+this.color1+" "+p1+
-                "%, "+this.color2+" "+p2+"%, "+this.color3+" "+p3+ "%, "+this.color4+" "+p4+"%)";
+            this.style = "background: linear-gradient(" + (this.angle + this.rot) + "deg, " + this.color1 + " " + p1 +
+                "%, " + this.color2 + " " + p2 + "%, " + this.color3 + " " + p3 + "%, " + this.color4 + " " + p4 + "%)";
         }
     }
 });

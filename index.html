@@ -33,11 +33,13 @@
 </div>
 <br>
 
-<div id="app-1">{{ message }}</div>
 <div id="app-2">
-    {{ user.username }}
+    user.username: {{ user.username }}
     <br>
     <input type="text" v-model="new_todo"><input type="button" value="ADD" v-on:click="addTodo">
+    <h3>Todos Component Inception</h3>
+    <todo-list v-bind:user="user"></todo-list>
+
     <h3>Todos</h3>
     <ol>
         <todo-item
